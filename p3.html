@@ -5,87 +5,240 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>แบบประเมิน - Pet For You</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        body { 
+            background-color: #f4eee1; 
+            background-image: radial-gradient(#d2b48c 0.5px, transparent 0.5px);
+            background-size: 20px 20px;
+            font-family: 'Kanit', sans-serif; 
+            color: #5d4037; 
+        }
+
+        .quiz-container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        
+        .guide-image-container { text-align: center; margin-bottom: 20px; }
+        .guide-image-container img { 
+            width: 100%; 
+            max-width: 500px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 20px rgba(93, 64, 55, 0.2); 
+            border: 4px solid #fff;
+        }
+
+        .quiz-header h1 {
+            color: #5d4037;
+            text-shadow: 1px 1px 0px #fff;
+            margin-bottom: 15px;
+        }
+        
+        .question-card {
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 35px rgba(93, 64, 55, 0.15); 
+            border: 1px solid #e0d5c1;
+            display: none;
+            position: relative;
+        }
+        .question-card.active { display: block; animation: slideUp 0.4s ease-out; }
+
+        .question-text { 
+            font-size: 1.4em; 
+            font-weight: bold; 
+            margin-bottom: 25px; 
+            color: #4e342e;
+            line-height: 1.4;
+        }
+        
+        .choice-btn {
+            display: block;
+            width: 100%;
+            padding: 16px 25px;
+            margin-bottom: 15px;
+            background: #fff;
+            border: 2px solid #d2b48c;
+            border-radius: 15px;
+            text-align: left;
+            font-size: 1.1em;
+            font-weight: 500;
+            color: #5d4037;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 0px #d2b48c;
+        }
+
+        .choice-btn:hover { 
+            background: #fdf5e6;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0px #b5966d;
+        }
+
+        .choice-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 0px 0px #b5966d;
+        }
+
+        .progress-bar { 
+            height: 14px; 
+            background: #e0d5c1; 
+            border-radius: 10px; 
+            margin-bottom: 30px; 
+            overflow: hidden; 
+            border: 2px solid #fff;
+        }
+        .progress-fill { 
+            height: 100%; 
+            background: linear-gradient(90deg, #d2b48c, #8d6e63); 
+            width: 0%; 
+            transition: 0.5s; 
+        }
+
+        .result-box {
+            display: none;
+            text-align: center;
+            background: white;
+            padding: 50px;
+            border-radius: 35px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+            border: 3px solid #d2b48c;
+        }
+        .result-box h1 { font-size: 2.5em; margin-top: 10px; }
+        .result-box img { 
+            width: 100%; 
+            max-width: 450px; 
+            border-radius: 25px; 
+            margin: 25px 0; 
+            border: 5px solid #f4eee1;
+        }
+        
+        @keyframes slideUp { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        
+        .btn-link { 
+            display: inline-block; 
+            padding: 15px 40px; 
+            background: #5d4037; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            font-size: 1.1em;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+        .btn-link:hover { background: #8d6e63; transform: scale(1.05); }
+    </style>
 </head>
 <body>
-    <div class="banner">
-        <img src="banner1.png" alt="Header Banner" width="100%">
+    <div class="banner"><img src="banner1.png" width="100%"></div>
+
+    <div class="menu">
+        <ul>
+            <li><a href="index.html">หน้าหลัก</a></li>
+            <li><a href="p1.html">หน้าประเภทสัตว์</a></li> 
+            <li><a href="p2.html">หน้ารายละเอียดสัตว์</a></li>
+            <li><a href="p3.html">หน้าทำแบบประเมิณ</a></li>
+        </ul>
     </div>
 
-    <div class="content">
-        <div class="menu">
-            <ul>
-                <li><a href="index.html">หน้าหลัก</a></li>
-                <li><a href="p1.html">หน้าประเภทสัตว์</a></li> 
-                <li><a href="p2.html">หน้ารายละเอียดสัตว์</a></li>
-                <li><a href="p3.html">หน้าทำแบบประเมิณ</a></li>
-            </ul>
+    <div class="quiz-container">
+        <div class="guide-image-container"><img src="pet-selection-guide.jpg"></div>
+
+        <div id="quiz-ui">
+            <div class="quiz-header">
+                <h1>🐾 ค้นหาคู่หูที่ใช่สำหรับคุณ (15 ข้อ)</h1>
+                <p style="color: #8d6e63; font-weight: bold;">วิเคราะห์ความเหมาะสมของคุณกับสัตว์เลี้ยง 6 ประเภท</p>
+                <div class="progress-bar"><div id="progress" class="progress-fill"></div></div>
+            </div>
+
+            <div id="question-area"></div>
         </div>
 
-        <div class="main-text">
-            <h1>🔍 ค้นหาสัตว์เลี้ยงที่ใช่... ในคลิกเดียว!</h1>
-            <p>เลือกไลฟ์สไตล์ที่ตรงกับคุณที่สุด เพื่อดูว่าคุณเหมาะกับสัตว์เลี้ยงประเภทไหน</p>
-            <hr>
-
-            <img src="pet-selection-guide.jpg" alt="Pet Selection Guide" width="25%" style="border-radius: 10px; margin-bottom: 20px;">
-
-            <div class="quiz-section" style="background-color: #f9f9f9; padding: 20px; border-radius: 10px;">
-                <h3>เลือกไลฟ์สไตล์ของคุณ:</h3>
-                
-                <div style="margin-bottom: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px;">
-                    <strong>A. สายลุย:</strong> ชอบออกกำลังกาย มีพื้นที่กว้าง และมีเวลาว่างเยอะ
-                    <br><a href="#result-dog" style="display: inline-block; margin-top: 10px; padding: 5px 15px; background: #e67e22; color: white; text-decoration: none; border-radius: 3px;">ดูผลลัพธ์</a>
-                </div>
-
-                <div style="margin-bottom: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px;">
-                    <strong>B. สายชิลล์:</strong> อยู่คอนโด พื้นที่จำกัด ชอบความสงบ ไม่ค่อยมีเวลาพาไปวิ่ง
-                    <br><a href="#result-cat" style="display: inline-block; margin-top: 10px; padding: 5px 15px; background: #9b59b6; color: white; text-decoration: none; border-radius: 3px;">ดูผลลัพธ์</a>
-                </div>
-
-                <div style="margin-bottom: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px;">
-                    <strong>C. สายมินิมอล:</strong> พื้นที่น้อยมาก แต่อยากมีเพื่อนแก้เหงา ดูแลไม่ยาก
-                    <br><a href="#result-small" style="display: inline-block; margin-top: 10px; padding: 5px 15px; background: #27ae60; color: white; text-decoration: none; border-radius: 3px;">ดูผลลัพธ์</a>
-                </div>
-
-                <div style="margin-bottom: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px;">
-                    <strong>D. สายอาร์ต:</strong> ชอบความแปลกใหม่ มีระเบียบวินัย และศึกษาข้อมูลเก่ง
-                    <br><a href="#result-exotic" style="display: inline-block; margin-top: 10px; padding: 5px 15px; background: #2c3e50; color: white; text-decoration: none; border-radius: 3px;">ดูผลลัพธ์</a>
-                </div>
-            </div>
-
-            <div style="margin-top: 100px;"></div> <h2 style="text-align: center; color: #7f8c8d;">--- ผลลัพธ์ของคุณจะปรากฏที่นี่ ---</h2>
-
-            <div id="result-dog" style="padding: 40px 20px; border: 2px solid #e67e22; border-radius: 10px; margin-top: 30px;">
-                <h2 style="color: #e67e22;">คุณเหมาะกับ: 🐶 สุนัข (The Best Friend)</h2>
-                <img src="dog_thumb.jpg" width="80%" style="border-radius: 10px; margin-bottom: 15px;">
-                <p>คุณเป็นคนมีพลังงานเหลือเฟือ! สุนัขคือเพื่อนที่จะร่วมเดินทางและออกกำลังกายไปกับคุณได้ดีที่สุด</p>
-                <a href="p2.html" style="color: #e67e22;">อ่านวิธีดูแลสุนัขเพิ่มเติม ></a>
-            </div>
-
-            <div id="result-cat" style="padding: 40px 20px; border: 2px solid #9b59b6; border-radius: 10px; margin-top: 30px;">
-                <h2 style="color: #9b59b6;">คุณเหมาะกับ: 🐱 แมว (The Independent Boss)</h2>
-                <img src="cat_thumb.jpg" width="80%" style="border-radius: 10px; margin-bottom: 15px;">
-                <p>คุณชอบความสงบและมีสไตล์ที่เรียบง่าย แมวจะช่วยสร้างบรรยากาศผ่อนคลายในที่พักของคุณโดยไม่ต้องดูแลตลอด 24 ชม.</p>
-                <a href="p2.html" style="color: #9b59b6;">อ่านวิธีดูแลแมวเพิ่มเติม ></a>
-            </div>
-
-            <div id="result-small" style="padding: 40px 20px; border: 2px solid #27ae60; border-radius: 10px; margin-top: 30px;">
-                <h2 style="color: #27ae60;">คุณเหมาะกับ: 🐹 สัตว์ฟันแทะ (The Tiny Companion)</h2>
-                <img src="rodent_thumb.jpg" width="80%" style="border-radius: 10px; margin-bottom: 15px;">
-                <p>พื้นที่ไม่ใช่ปัญหาสำหรับความรัก! แฮมสเตอร์หรือกระต่ายคือเพื่อนตัวจิ๋วที่จะทำให้คุณยิ้มได้ในพื้นที่จำกัด</p>
-                <a href="p2.html" style="color: #27ae60;">อ่านวิธีดูแลสัตว์เล็กเพิ่มเติม ></a>
-            </div>
-
-            <div id="result-exotic" style="padding: 40px 20px; border: 2px solid #2c3e50; border-radius: 10px; margin-top: 30px;">
-                <h2 style="color: #2c3e50;">คุณเหมาะกับ: 🦎 สัตว์แปลก (The Unique Master)</h2>
-                <img src="exotic_thumb.jpg" width="80%" style="border-radius: 10px; margin-bottom: 15px;">
-                <p>คุณเป็นคนละเอียดอ่อนและชอบการเรียนรู้ สัตว์ Exotic จะทำให้โลกการเลี้ยงสัตว์ของคุณตื่นเต้นไม่เหมือนใคร</p>
-                <a href="p2.html" style="color: #2c3e50;">อ่านวิธีดูแลสัตว์แปลกเพิ่มเติม ></a>
-            </div>
-
-        </div> </div>
-
-    <div class="footer">
-        <img src="banner2.png" alt="Footer Banner" width="100%">
+        <div id="result-area" class="result-box"></div>
     </div>
+
+    <script>
+        const questions = [
+            { q: "1. ในวันหยุดที่แสนสดใส คุณมักจะ...", options: ["แต่งตัวออกไปวิ่งหรือทำกิจกรรมข้างนอก", "นอนอ่านหนังสือ หรือดูหนังเงียบๆ", "ฟังเพลงหรือเปิดหน้าต่างรับลม", "นั่งสมาธิหรือจ้องมองตู้กระจกนิ่งๆ"], types: ["dog", "cat", "bird", "fish"] },
+            { q: "2. คุณมีเวลาว่างให้สัตว์เลี้ยงมากแค่ไหนต่อวัน?", options: ["มากกว่า 3 ชั่วโมง", "1-2 ชั่วโมง", "30 นาทีถึง 1 ชั่วโมง", "แทบไม่มีเลย แค่ให้อาหารก็พอ"], types: ["dog", "bird", "small", "fish"] },
+            { q: "3. สถานที่พักของคุณตอนนี้เป็นอย่างไร?", options: ["บ้านกว้างขวาง มีสนามหญ้า", "คอนโดหรืออพาร์ทเมนต์", "ห้องนอนที่มีพื้นที่วางกรงเล็กๆ", "พื้นที่จำกัดแต่จัดวางตู้สวยๆ ได้"], types: ["dog", "cat", "small", "fish"] },
+            { q: "4. คุณรับมือกับเสียงรบกวนได้แค่ไหน?", options: ["รับได้! ชอบความสนุกและคึกคัก", "ขอความสงบ อย่าส่งเสียงดังเกินไป", "ชอบเสียงนกร้องทักทายแจ่มใส", "ชอบความเงียบ สงบ นิ่งที่สุด"], types: ["dog", "cat", "bird", "fish"] },
+            { q: "5. คุณเป็นคนดูแลเรื่องความสะอาดบ่อยแค่ไหน?", options: ["ดูแลได้ตลอด ไม่เกี่ยงงานหนัก", "ทำสัปดาห์ละครั้ง เน้นความเป็นระเบียบ", "เน้นดูแลระบบน้ำและอากาศให้เป๊ะ", "นานๆ ทำที เน้นเลี้ยงแบบธรรมชาติ"], types: ["dog", "small", "fish", "exotic"] },
+            { q: "6. นิสัยสัตว์เลี้ยงแบบไหนที่คุณ 'แพ้ทาง' ?", options: ["ความซื่อสัตย์ ร่าเริง ขี้อ้อน", "ความนิ่ง มีเสน่ห์ ลึกลับ", "ความช่างพูด ช่างเจรจา แสนรู้", "ความเท่ ไม่ซ้ำใคร มีเอกลักษณ์"], types: ["dog", "cat", "bird", "exotic"] },
+            { q: "7. เรื่องงบประมาณดูแลรายเดือน?", options: ["จัดเต็ม! เพื่อความสุขของลูกๆ", "ระดับกลางๆ เน้นของมีคุณภาพ", "ประหยัดและคุ้มค่าที่สุด", "ลงทุนกับอุปกรณ์ครั้งแรกหนักๆ"], types: ["dog", "cat", "small", "fish"] },
+            { q: "8. คุณอยากพาสัตว์เลี้ยงไปเปิดหูเปิดตาไหม?", options: ["แน่นอน! ต้องไปเที่ยวด้วยกันสิ", "พาไปเดินเล่นแถวบ้านพอไหว", "ให้อยู่ในกรง/พื้นที่ของเขาปลอดภัยกว่า", "เขาชอบอยู่ในตู้ส่วนตัวที่สุด"], types: ["dog", "bird", "small", "fish"] },
+            { q: "9. พลังงานของคุณในแต่ละวันเป็นอย่างไร?", options: ["ล้นเหลือ พร้อมลุยทุกสถานการณ์", "ปานกลาง ชอบความเรื่อยๆ", "เหนื่อยง่าย ขอพักผ่อนเยอะๆ", "คงที่ ชอบสมาธิและความสงบ"], types: ["dog", "bird", "cat", "fish"] },
+            { q: "10. คุณกลัวสัตว์ที่ไม่มีขนหรือมีเกล็ดไหม?", options: ["กลัวมาก ขอนุ่มฟูไว้ก่อน", "ไม่กลัวเลย เท่ดีออก", "เฉยๆ ถ้าสวยงามก็โอเค", "ชอบลูบคลำผิวหนังที่แตกต่าง"], types: ["dog", "exotic", "fish", "exotic"] },
+            { q: "11. คุณต้องการการตอบสนองแบบไหนจากสัตว์?", options: ["วิ่งมาหาทันทีที่เรียกชื่อ", "เดินมาคลอเคลียเมื่อเขาต้องการ", "ส่งเสียงร้องทักทายทุกครั้งที่เห็น", "อยู่นิ่งๆ ให้เราชื่นชมความสวยงาม"], types: ["dog", "cat", "bird", "fish"] },
+            { q: "12. คุณมีความอดทนในการฝึกฝนแค่ไหน?", options: ["สูงมาก อยากสอนทริคยากๆ", "ปานกลาง สอนพื้นฐานได้", "น้อย ชอบสัตว์ที่เป็นตัวของตัวเอง", "ไม่มีเลย ชอบแค่นั่งดูเฉยๆ"], types: ["dog", "bird", "cat", "fish"] },
+            { q: "13. การสัมผัสสัตว์เลี้ยงสำคัญกับคุณไหม?", options: ["สำคัญมาก ต้องกอดต้องหอมได้", "ชอบลูบเบาๆ บางเวลา", "ไม่ค่อยสำคัญ แค่ได้อยู่ใกล้ๆ ก็พอ", "ไม่เน้นสัมผัส เน้นการสังเกต"], types: ["dog", "cat", "small", "fish"] },
+            { q: "14. คุณแพ้ขนสัตว์หรือไม่?", options: ["ไม่แพ้เลย", "แพ้นิดหน่อย", "แพ้มาก ขอแบบไม่มีขน", "ไม่แน่ใจแต่ขอเลี่ยงไว้ก่อน"], types: ["dog", "small", "fish", "exotic"] },
+            { q: "15. คุณพร้อมจะรับผิดชอบชีวิตเขาไปนานๆ ไหม?", options: ["พร้อมมาก! เขาคือครอบครัว", "พร้อมตราบเท่าที่เขายังอยู่", "อยากลองเลี้ยงดูในระยะสั้นก่อน", "พร้อมจะศึกษาพฤติกรรมยาวๆ"], types: ["dog", "cat", "small", "exotic"] }
+        ];
+
+        let currentQuestion = 0;
+        let scores = { dog: 0, cat: 0, small: 0, exotic: 0, bird: 0, fish: 0 };
+
+        function renderQuestion() {
+            const area = document.getElementById('question-area');
+            const q = questions[currentQuestion];
+            const progress = ((currentQuestion) / questions.length) * 100;
+            document.getElementById('progress').style.width = progress + "%";
+
+            area.innerHTML = `
+                <div class="question-card active">
+                    <p style="color:#d2b48c; font-weight:bold; margin-bottom:10px;">QUESTION ${currentQuestion + 1} / 15</p>
+                    <div class="question-text">${q.q}</div>
+                    ${q.options.map((opt, i) => `
+                        <button class="choice-btn" onclick="nextQuestion('${q.types[i]}')">${opt}</button>
+                    `).join('')}
+                    <div style="text-align:center; margin-top:15px; font-weight:bold; color:#e0d5c1;">${currentQuestion + 1} / 15</div>
+                </div>
+            `;
+        }
+
+        function nextQuestion(type) {
+            scores[type]++;
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                renderQuestion();
+            } else {
+                showFinalResult();
+            }
+        }
+
+        function showFinalResult() {
+            document.getElementById('quiz-ui').style.display = 'none';
+            document.querySelector('.guide-image-container').style.display = 'none';
+            const resultArea = document.getElementById('result-area');
+            resultArea.style.display = 'block';
+
+            const winner = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+            
+            const results = {
+                dog: { title: "🐶 สุนัข (The Best Partner)", img: "dog_thumb.jpg", txt: "คุณเป็นคนสดใส พลังล้นเหลือ! สุนัขคือคู่หูที่พร้อมจะลุยไปกับคุณทุกสถานการณ์", link: "p2.html#dog" },
+                cat: { title: "🐱 แมว (The Independent Soul)", img: "cat_thumb.jpg", txt: "คุณรักความสงบและมีสไตล์ส่วนตัว แมวจะช่วยเติมเต็มความอบอุ่นให้บ้านคุณได้ดีที่สุด", link: "p2.html#cat" },
+                small: { title: "🐹 สัตว์เล็ก (The Sweet Buddy)", img: "rodent_thumb.jpg", txt: "คุณชอบความน่ารักเรียบง่ายในมุมเล็กๆ สัตว์ฟันแทะตัวน้อยคือเพื่อนที่จะทำให้คุณยิ้มได้เสมอ", link: "p2.html#small" },
+                exotic: { title: "🦎 สัตว์แปลก (The Unique Master)", img: "exotic_thumb.jpg", txt: "คุณชอบการเรียนรู้และมีความใจเย็น สัตว์แปลกจะทำให้คุณตื่นเต้นกับความมหัศจรรย์ของธรรมชาติ", link: "p2.html#exotic" },
+                bird: { title: "🦜 นก (The Joyful Friend)", img: "bird_thumb.jpg", txt: "คุณชอบความร่าเริงและเสียงเพลง นกแสนรู้คือเพื่อนช่างเจรจาที่จะทำให้บ้านคุณไม่เงียบเหงา", link: "p2.html#bird" },
+                fish: { title: "🐠 ปลา (The Peaceful Soul)", img: "fish_thumb.jpg", txt: "คุณรักความสงบและสุนทรียภาพ ปลาสวยงามจะช่วยบำบัดความเครียดและสร้างความผ่อนคลายให้คุณ", link: "p2.html#fish" }
+            };
+
+            const final = results[winner];
+            resultArea.innerHTML = `
+                <p style="font-weight:bold; color:#d2b48c; letter-spacing:2px;">CONGRATULATIONS</p>
+                <h1 style="color:#5d4037;">${final.title}</h1>
+                <img src="${final.img}" onerror="this.src='https://via.placeholder.com/450x300?text=Pet+Result'">
+                <p style="font-size:1.2em; line-height:1.6; color:#666; padding:0 20px;">${final.txt}</p>
+                <a href="${final.link}" class="btn-link">ดูรายละเอียดการดูแล</a>
+                <br><br><a href="p3.html" style="text-decoration:none; color:#d2b48c; font-weight:bold;">↺ ทำแบบทดสอบอีกครั้ง</a>
+            `;
+        }
+
+        renderQuestion();
+    </script>
 </body>
 </html>
