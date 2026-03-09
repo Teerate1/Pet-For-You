@@ -3,97 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>หน้ารายละเอียดสัตว์ - Pet For You</title>
+    <title>รายละเอียดสัตว์เลี้ยง - Pet For You</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        html { scroll-behavior: smooth; }
+        body { 
+            background-color: #fcfaf5; 
+            background-image: radial-gradient(#d2b48c 0.4px, transparent 0.4px);
+            background-size: 20px 20px;
+            font-family: 'Kanit', sans-serif; 
+            color: #5d4037; 
+            margin: 0;
+        }
+
+        .content-container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+
+        .header-section { text-align: center; margin-bottom: 50px; }
+        .header-section h1 { font-size: 3em; color: #4e342e; margin-bottom: 10px; }
+        .hint-badge { 
+            background: linear-gradient(135deg, #d2b48c, #8d6e63); 
+            color: white; padding: 10px 30px; 
+            border-radius: 50px; font-size: 0.95em; 
+            box-shadow: 0 4px 15px rgba(141, 110, 99, 0.3);
+        }
+
+        /* การ์ดแต่ละใบ */
+        .animal-card {
+            background: white;
+            border-radius: 35px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(93, 64, 55, 0.05);
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 1px solid rgba(210, 180, 140, 0.2);
+            display: block; /* มั่นใจว่าเป็น Block แยกกัน */
+            clear: both;
+        }
+
+        .animal-card:hover { transform: translateY(-5px); border-color: #d2b48c; }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            padding: 30px 40px;
+            gap: 25px;
+        }
+
+        .img-container {
+            width: 85px; height: 85px;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 4px solid #fcfaf5;
+            flex-shrink: 0;
+        }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; }
+
+        .header-text h2 { margin: 0; font-size: 1.9em; color: #5d4037; }
+        .header-text p { margin: 5px 0 0; color: #a67c52; font-weight: 500; }
+
+        /* ส่วนเนื้อหา */
+        .card-body {
+            display: none;
+            padding: 0 40px 45px 40px;
+            border-top: 1px dashed #e0d5c1;
+            overflow: hidden; /* ป้องกันข้อมูลไหลออก */
+        }
+
+        .animal-card.active .card-body { display: block; animation: slideIn 0.5s ease; }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .full-img {
+            width: 100%; height: 420px;
+            object-fit: cover;
+            border-radius: 30px;
+            margin: 35px 0;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        }
+
+        /* ตารางข้อมูล 6 หัวข้อ */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .info-item {
+            background: #fffcf7;
+            padding: 22px;
+            border-radius: 25px;
+            border: 1px solid #f4eee1;
+            height: auto; /* ให้ยืดตามเนื้อหา */
+        }
+
+        .info-item b { display: flex; align-items: center; gap: 8px; color: #8d6e63; margin-bottom: 12px; font-size: 1.15em; }
+        .info-item span { color: #6d5d54; font-size: 0.95em; line-height: 1.7; display: block; }
+
+        .cta-btn {
+            display: block; width: fit-content; margin: 45px auto 0;
+            padding: 18px 60px; background: #5d4037; color: white;
+            text-decoration: none; border-radius: 50px; font-weight: bold;
+            transition: 0.3s;
+        }
+        .cta-btn:hover { background: #d2b48c; transform: scale(1.05); }
+
+        @media (max-width: 900px) { .info-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
+    </style>
 </head>
 <body>
-    <div class="banner">
-        <img src="banner1.png" alt="Header Banner" width="100%">
+    <div class="banner"><img src="banner1.png" width="100%"></div>
+
+    <div class="menu">
+        <ul>
+            <li><a href="index.html">หน้าหลัก</a></li>
+            <li><a href="p1.html">หน้าประเภทสัตว์</a></li> 
+            <li><a href="p2.html">หน้ารายละเอียดสัตว์</a></li>
+            <li><a href="p3.html">หน้าทำแบบประเมิณ</a></li>
+        </ul>
     </div>
 
-    <div class="content">
-        <div class="menu">
-            <ul>
-                <li><a href="index.html">หน้าหลัก</a></li>
-                <li><a href="p1.html">หน้าประเภทสัตว์</a></li> 
-                <li><a href="p2.html">หน้ารายละเอียดสัตว์</a></li>
-                <li><a href="p3.html">หน้าทำแบบประเมิณ</a></li>
-            </ul>
+    <div class="content-container">
+        <div class="header-section">
+            <h1>🐾 สารานุกรมสัตว์เลี้ยง</h1>
+            <span class="hint-badge">ครบ 6 ประเภทสัตว์ยอดนิยม</span>
         </div>
 
-        <div class="main-text">
-            <h1 style="color: #2c3e50;">🐾 รายละเอียดการดูแลสัตว์เลี้ยง</h1>
-            <p>ข้อมูลที่จำเป็นสำหรับการเตรียมตัวเป็นเจ้าของมือใหม่</p>
-            <hr>
-
-            <div class="animal-card" style="margin-bottom: 40px; border-bottom: 1px solid #eee; padding-bottom: 20px;">
-                <h2 style="color: #e67e22;">🐶 สุนัข (Dogs)</h2>
-                <img src="dog_thumb.jpg" alt="Dog Detail" width="100%" style="max-width: 500px; border-radius: 8px;">
-                <p><strong>ลักษณะเด่น:</strong> สัตว์สังคมที่ซื่อสัตย์ ต้องการการเอาใจใส่และกิจกรรมนอกบ้าน</p>
-                <ul style="line-height: 1.8;">
-                    <li><strong>อาหาร:</strong> เน้นโปรตีนและสารอาหารครบถ้วน เลี่ยงอาหารรสจัด</li>
-                    <li><strong>อายุขัย:</strong> 10-15 ปี</li>
-                    <li><strong>ระดับการดูแล:</strong> ⭐⭐⭐⭐⭐ (สูง - ต้องพาเดินเล่น)</li>
-                </ul>
+        <div class="animal-card" onclick="toggleCard(this)">
+            <div class="card-header">
+                <div class="img-container"><img src="dog_thumb.jpg"></div>
+                <div class="header-text"><h2>สุนัข (Dogs)</h2><p>คู่หูผู้ซื่อสัตย์และพลังล้นเหลือ</p></div>
             </div>
-
-            <div class="animal-card" style="margin-bottom: 40px; border-bottom: 1px solid #eee; padding-bottom: 20px;">
-                <h2 style="color: #9b59b6;">🐱 แมว (Cats)</h2>
-                <img src="cat_thumb.jpg" alt="Cat Detail" width="100%" style="max-width: 500px; border-radius: 8px;">
-                <p><strong>ลักษณะเด่น:</strong> รักอิสระและพื้นที่ส่วนตัว ชอบความสะอาด</p>
-                <ul style="line-height: 1.8;">
-                    <li><strong>อาหาร:</strong> อาหารที่มีทอรีนและโปรตีนจากเนื้อสัตว์</li>
-                    <li><strong>อายุขัย:</strong> 12-18 ปี</li>
-                    <li><strong>ระดับการดูแล:</strong> ⭐⭐⭐ (ปานกลาง - ดูแลกระบะทราย)</li>
-                </ul>
+            <div class="card-body">
+                <img src="dog_thumb.jpg" class="full-img">
+                <div class="info-grid">
+                    <div class="info-item"><b>🥩 อาหาร</b><span>โปรตีนหลักจากเนื้อสัตว์ เลี่ยงอาหารคนที่มีโซเดียมสูงและสารปรุงแต่ง</span></div>
+                    <div class="info-item"><b>🏃 กิจกรรม</b><span>ต้องการการออกกำลังกายสม่ำเสมอ เพื่อลดความเครียดและโรคอ้วน</span></div>
+                    <div class="info-item"><b>🩺 สุขภาพ</b><span>วัคซีนรวมประจำปี ป้องกันเห็บหมัดและพยาธิหนอนหัวใจทุกเดือน</span></div>
+                    <div class="info-item"><b>🏠 พื้นที่</b><span>ต้องการบริเวณบ้านหรือการพาเดินเล่น ไม่ควรขังในที่แคบตลอดเวลา</span></div>
+                    <div class="info-item"><b>🎾 ของเล่น</b><span>เน้นอุปกรณ์ที่ฝึกทักษะและของเล่นขัดฟันเพื่อสุขภาพช่องปาก</span></div>
+                    <div class="info-item"><b>⚠️ ระวัง</b><span>ความร้อนสะสม (Heatstroke) และอาหารต้องห้าม เช่น ช็อกโกแลต องุ่น</span></div>
+                </div>
+                <a href="p3.html" class="cta-btn">วิเคราะห์ความพร้อมเลี้ยงสุนัข</a>
             </div>
+        </div>
 
-            <div class="animal-card" style="margin-bottom: 40px; border-bottom: 1px solid #eee; padding-bottom: 20px;">
-                <h2 style="color: #27ae60;">🐰 สัตว์ฟันแทะ (Small Pets)</h2>
-                <img src="rodent_thumb.jpg" alt="Small Pets" width="100%" style="max-width: 500px; border-radius: 8px;">
-                <p><strong>ลักษณะเด่น:</strong> ตัวเล็ก กินง่าย แต่ฟันยาวตลอดเวลาต้องมีของให้แทะ</p>
-                <ul style="line-height: 1.8;">
-                    <li><strong>อาหาร:</strong> หญ้าแห้งและธัญพืช</li>
-                    <li><strong>อายุขัย:</strong> 2-8 ปี</li>
-                    <li><strong>ระดับการดูแล:</strong> ⭐⭐⭐ (ปานกลาง)</li>
-                </ul>
+        <div class="animal-card" onclick="toggleCard(this)">
+            <div class="card-header">
+                <div class="img-container"><img src="cat_thumb.jpg"></div>
+                <div class="header-text"><h2>แมว (Cats)</h2><p>เจ้านายตัวน้อยผู้รักอิสระและโลกส่วนตัว</p></div>
             </div>
-
-            <div class="animal-card" style="margin-bottom: 40px; border-bottom: 1px solid #eee; padding-bottom: 20px;">
-                <h2 style="color: #3498db;">🐦 นก (Birds)</h2>
-                <img src="bird_thumb.jpg" alt="Bird Detail" width="100%" style="max-width: 500px; border-radius: 8px;">
-                <p><strong>ลักษณะเด่น:</strong> ฉลาด เลียนเสียงเก่ง และต้องการปฏิสัมพันธ์สูง</p>
-                <ul style="line-height: 1.8;">
-                    <li><strong>อาหาร:</strong> เมล็ดพืชและผลไม้สด</li>
-                    <li><strong>อายุขัย:</strong> 5-50 ปี</li>
-                    <li><strong>ระดับการดูแล:</strong> ⭐⭐⭐⭐ (ค่อนข้างสูง)</li>
-                </ul>
+            <div class="card-body">
+                <img src="cat_thumb.jpg" class="full-img">
+                <div class="info-grid">
+                    <div class="info-item"><b>🐟 อาหาร</b><span>เน้นสารอาหารทอรีน ต้องมีน้ำสะอาดวางแยกหลายจุดเพื่อกระตุ้นการดื่ม</span></div>
+                    <div class="info-item"><b>🚽 สุขอนามัย</b><span>กระบะทรายต้องสะอาดเสมอ แนะนำสูตร แมว+1 (มีกระบะมากกว่าจำนวนแมว)</span></div>
+                    <div class="info-item"><b>🏢 พื้นที่</b><span>ชอบเล่นแนวตั้ง ควรมีคอนโดแมวหรือชั้นลอยให้ปีนป่ายสำรวจบ้าน</span></div>
+                    <div class="info-item"><b>🧶 พฤติกรรม</b><span>เป็นสัตว์ที่ซ่อนความเจ็บป่วยเก่ง เจ้าของต้องสังเกตพฤติกรรมการกินและขับถ่าย</span></div>
+                    <div class="info-item"><b>✂️ อุปกรณ์</b><span>ที่ฝนเล็บเป็นสิ่งจำเป็น เพื่อป้องกันเฟอร์นิเจอร์และลดความเครียด</span></div>
+                    <div class="info-item"><b>⚠️ ระวัง</b><span>การปล่อยเดินอิสระนอกบ้าน เสี่ยงต่ออุบัติเหตุและโรคติดต่อจากแมวจร</span></div>
+                </div>
+                <a href="p3.html" class="cta-btn">วิเคราะห์ความพร้อมเลี้ยงแมว</a>
             </div>
+        </div>
 
-            <div class="animal-card" style="margin-bottom: 40px; border-bottom: 1px solid #eee; padding-bottom: 20px;">
-                <h2 style="color: #1abc9c;">🐠 ปลา (Fish)</h2>
-                <img src="fish_thumb.jpg" alt="Fish Detail" width="100%" style="max-width: 500px; border-radius: 8px;">
-                <p><strong>ลักษณะเด่น:</strong> สวยงาม เงียบสงบ ช่วยลดความเครียดให้เจ้าของ</p>
-                <ul style="line-height: 1.8;">
-                    <li><strong>อาหาร:</strong> อาหารเม็ดหรือไรแดง</li>
-                    <li><strong>อายุขัย:</strong> 2-10 ปี</li>
-                    <li><strong>ระดับการดูแล:</strong> ⭐⭐ (เน้นดูแลระบบน้ำ)</li>
-                </ul>
+        <div class="animal-card" onclick="toggleCard(this)">
+            <div class="card-header">
+                <div class="img-container"><img src="rodent_thumb.jpg"></div>
+                <div class="header-text"><h2>สัตว์เล็ก (Small Pets)</h2><p>เพื่อนตัวจิ๋ว ประหยัดพื้นที่ แต่น่ารักมาก</p></div>
             </div>
-
-            <div class="animal-card" style="margin-bottom: 40px; border-bottom: 1px solid #eee; padding-bottom: 20px;">
-                <h2 style="color: #d35400;">🦎 สัตว์แปลก (Exotic)</h2>
-                <img src="exotic_thumb.jpg" alt="Exotic Detail" width="100%" style="max-width: 500px; border-radius: 8px;">
-                <p><strong>ลักษณะเด่น:</strong> มีเสน่ห์เฉพาะตัว ต้องการการควบคุมอุณหภูมิที่แม่นยำ</p>
-                <ul style="line-height: 1.8;">
-                    <li><strong>อาหาร:</strong> แมลงเป็นหรือพืชเฉพาะชนิด</li>
-                    <li><strong>อายุขัย:</strong> 5-20 ปี</li>
-                    <li><strong>ระดับการดูแล:</strong> ⭐⭐⭐⭐⭐ (ยาก - ต้องใช้ความชำนาญ)</li>
-                </ul>
+            <div class="card-body">
+                <img src="rodent_thumb.jpg" class="full-img">
+                <div class="info-grid">
+                    <div class="info-item"><b>🌿 อาหาร</b><span>หญ้าแห้งคือหัวใจหลัก (80%) สำหรับกระต่ายและแกสบี้ เพื่อระบบย่อย</span></div>
+                    <div class="info-item"><b>❄️ อุณหภูมิ</b><span>ไวต่อความร้อนมาก ควรอยู่ในห้องที่อากาศถ่ายเท หรืออุณหภูมิไม่เกิน 27°C</span></div>
+                    <div class="info-item"><b>🤫 นิสัย</b><span>เป็นสัตว์ที่ขี้ตกใจง่าย ต้องการที่ซ่อนมิดชิดในกรงเพื่อให้รู้สึกปลอดภัย</span></div>
+                    <div class="info-item"><b>🦷 การลับฟัน</b><span>ฟันยาวตลอดชีวิต ต้องมีวัสดุธรรมชาติให้แทะเพื่อไม่ให้ฟันยาวจนกินอาหารไม่ได้</span></div>
+                    <div class="info-item"><b>🧼 ความสะอาด</b><span>เปลี่ยนวัสดุรองกรงบ่อยๆ เพื่อป้องกันแอมโมเนียจากปัสสาวะกัดเท้า</span></div>
+                    <div class="info-item"><b>⚠️ ระวัง</b><span>ห้ามอาบน้ำด้วยวิธีจุ่มลงน้ำแรงๆ เพราะอาจช็อกตายได้ง่าย</span></div>
+                </div>
+                <a href="p3.html" class="cta-btn">วิเคราะห์ความพร้อมเลี้ยงสัตว์เล็ก</a>
             </div>
+        </div>
 
-        </div> </div> <div class="footer">
-        <img src="banner2.png" alt="Footer Banner" width="100%">
+        <div class="animal-card" onclick="toggleCard(this)">
+            <div class="card-header">
+                <div class="img-container"><img src="bird_thumb.jpg"></div>
+                <div class="header-text"><h2>นก (Birds)</h2><p>เสียงเพลงและสีสันสดใสที่สร้างชีวิตชีวา</p></div>
+            </div>
+            <div class="card-body">
+                <img src="bird_thumb.jpg" class="full-img">
+                <div class="info-grid">
+                    <div class="info-item"><b>🦜 อาหาร</b><span>ธัญพืชหลากหลายและผลไม้สด เลี่ยงอาหารเม็ดที่มีสีผสมอาหารเข้มข้น</span></div>
+                    <div class="info-item"><b>🌤️ แสงแดด</b><span>ต้องการวิตามินจากแดดยามเช้าเพื่อช่วยในการดูดซึมแคลเซียม</span></div>
+                    <div class="info-item"><b>🧠 ฝึกฝน</b><span>นกเป็นสัตว์ฉลาด สามารถสอนทริคพื้นฐานและฝึกเรียกให้บินกลับมาหาได้</span></div>
+                    <div class="info-item"><b>🌬️ ระบบหายใจ</b><span>ปอดละเอียดอ่อนมาก ห้ามใช้สเปรย์น้ำหอมหรือยากันยุงในบริเวณที่เลี้ยง</span></div>
+                    <div class="info-item"><b>🛁 การทำความสะอาด</b><span>ชอบเล่นน้ำ ควรมีอ่างน้ำเล็กๆ หรือฟ็อกกี้ฉีดพ่นละอองน้ำเบาๆ</span></div>
+                    <div class="info-item"><b>⚠️ ระวัง</b><span>สารเทฟลอนจากกระทะร้อนจัด เพราะควันพิษสามารถฆ่านกได้ทันที</span></div>
+                </div>
+                <a href="p3.html" class="cta-btn">วิเคราะห์ความพร้อมเลี้ยงนก</a>
+            </div>
+        </div>
+
+        <div class="animal-card" onclick="toggleCard(this)">
+            <div class="card-header">
+                <div class="img-container"><img src="fish_thumb.jpg"></div>
+                <div class="header-text"><h2>ปลา (Fish)</h2><p>ความผ่อนคลายและสมาธิใต้ผิวน้ำ</p></div>
+            </div>
+            <div class="card-body">
+                <img src="fish_thumb.jpg" class="full-img">
+                <div class="info-grid">
+                    <div class="info-item"><b>💧 ระบบน้ำ</b><span>ต้องมีระบบกรองที่เหมาะสมและควรรักษารอบการเปลี่ยนน้ำที่คงที่</span></div>
+                    <div class="info-item"><b>🌊 ออกซิเจน</b><span>หัวใจสำคัญคือความสะอาดและปริมาณออกซิเจนที่เพียงพอกับจำนวนปลา</span></div>
+                    <div class="info-item"><b>🍱 อาหาร</b><span>ให้แต่พอดี กินหมดใน 2-3 นาที เพื่อไม่ให้เศษอาหารตกค้างทำน้ำเสีย</span></div>
+                    <div class="info-item"><b>🌿 สภาพแวดล้อม</b><span>การมีไม้น้ำจริงช่วยดูดซับของเสียและสร้างระบบนิเวศจำลองที่สมบูรณ์</span></div>
+                    <div class="info-item"><b>🩺 การป้องกัน</b><span>กักโรคปลาใหม่ 7-14 วัน ก่อนลงตู้รวมเพื่อป้องกันการระบาดของโรค</span></div>
+                    <div class="info-item"><b>⚠️ ระวัง</b><span>สารคลอรีนในน้ำประปา ควรพักน้ำทิ้งไว้หรือใช้ตัวกำจัดคลอรีนเสมอ</span></div>
+                </div>
+                <a href="p3.html" class="cta-btn">วิเคราะห์ความพร้อมเลี้ยงปลา</a>
+            </div>
+        </div>
+
+        <div class="animal-card" onclick="toggleCard(this)">
+            <div class="card-header">
+                <div class="img-container"><img src="exotic_thumb.jpg"></div>
+                <div class="header-text"><h2>สัตว์แปลก (Exotic)</h2><p>เสน่ห์ที่แตกต่างและการเรียนรู้ไม่รู้จบ</p></div>
+            </div>
+            <div class="card-body">
+                <img src="exotic_thumb.jpg" class="full-img">
+                <div class="info-grid">
+                    <div class="info-item"><b>🦗 อาหาร</b><span>เน้นอาหารเฉพาะทางตามสายพันธุ์ เช่น แมลงสด หรือพืชเฉพาะถิ่น</span></div>
+                    <div class="info-item"><b>💡 แสงและไฟ</b><span>จำเป็นต้องมีหลอด UVA/UVB เพื่อช่วยในการย่อยอาหารและกระดูก</span></div>
+                    <div class="info-item"><b>🌡️ ควบคุม</b><span>ต้องมีเครื่องวัดอุณหภูมิและความชื้นที่แม่นยำ เพราะสัตว์กลุ่มนี้ปรับตัวช้า</span></div>
+                    <div class="info-item"><b>🩺 โรงพยาบาล</b><span>ต้องเช็คโรงพยาบาลสัตว์พิเศษ (Exotic Clinic) ใกล้บ้านไว้เสมอ</span></div>
+                    <div class="info-item"><b>📦 พื้นที่เลี้ยง</b><span>ตู้ต้องมิดชิดและมีการระบายอากาศที่ดี เพื่อป้องกันสัตว์หลุดและเชื้อรา</span></div>
+                    <div class="info-item"><b>⚠️ ระวัง</b><span>พฤติกรรมตามสัญชาตญาณ เช่น การฉีดฟีโรโมนหรือการป้องกันตัวที่รุนแรง</span></div>
+                </div>
+                <a href="p3.html" class="cta-btn">วิเคราะห์ความพร้อมเลี้ยงสัตว์แปลก</a>
+            </div>
+        </div>
+
     </div>
+
+    <div class="footer"><img src="banner2.png" width="100%"></div>
+
+    <script>
+        function toggleCard(card) {
+            const isActive = card.classList.contains('active');
+            
+            document.querySelectorAll('.animal-card').forEach(c => {
+                c.classList.remove('active');
+            });
+
+            if (!isActive) {
+                card.classList.add('active');
+                
+                // ใช้การคำนวณตำแหน่งที่แม่นยำขึ้นเพื่อเลื่อนหน้าจอ
+                setTimeout(() => {
+                    const yOffset = -20; 
+                    const elementRect = card.getBoundingClientRect().top + window.pageYOffset;
+                    window.scrollTo({ top: elementRect + yOffset, behavior: 'smooth' });
+                }, 300);
+            }
+        }
+    </script>
 </body>
 </html>
