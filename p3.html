@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบประเมิน - Pet For You</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="banner">
+        <img src="banner1.png" alt="Header Banner" width="100%">
+    </div>
+
+    <div class="content">
+        <div class="menu">
+            <ul>
+                <li><a href="index.html">หน้าหลัก</a></li>
+                <li><a href="p1.html">หน้าประเภทสัตว์</a></li> 
+                <li><a href="p2.html">หน้ารายละเอียดสัตว์</a></li>
+                <li><a href="p3.html">หน้าทำแบบประเมิณ</a></li>
+            </ul>
+        </div>
+
+        <div class="main-text">
+            <h1>🔍 ค้นหาสัตว์เลี้ยงที่ใช่... ในคลิกเดียว!</h1>
+            <p>เลือกไลฟ์สไตล์ที่ตรงกับคุณที่สุด เพื่อดูว่าคุณเหมาะกับสัตว์เลี้ยงประเภทไหน</p>
+            <hr>
+
+            <img src="pet-selection-guide.jpg" alt="Pet Selection Guide" width="25%" style="border-radius: 10px; margin-bottom: 20px;">
+
+            <div class="quiz-section" style="background-color: #f9f9f9; padding: 20px; border-radius: 10px;">
+                <h3>เลือกไลฟ์สไตล์ของคุณ:</h3>
+                
+                <div style="margin-bottom: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px;">
+                    <strong>A. สายลุย:</strong> ชอบออกกำลังกาย มีพื้นที่กว้าง และมีเวลาว่างเยอะ
+                    <br><a href="#result-dog" style="display: inline-block; margin-top: 10px; padding: 5px 15px; background: #e67e22; color: white; text-decoration: none; border-radius: 3px;">ดูผลลัพธ์</a>
+                </div>
+
+                <div style="margin-bottom: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px;">
+                    <strong>B. สายชิลล์:</strong> อยู่คอนโด พื้นที่จำกัด ชอบความสงบ ไม่ค่อยมีเวลาพาไปวิ่ง
+                    <br><a href="#result-cat" style="display: inline-block; margin-top: 10px; padding: 5px 15px; background: #9b59b6; color: white; text-decoration: none; border-radius: 3px;">ดูผลลัพธ์</a>
+                </div>
+
+                <div style="margin-bottom: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px;">
+                    <strong>C. สายมินิมอล:</strong> พื้นที่น้อยมาก แต่อยากมีเพื่อนแก้เหงา ดูแลไม่ยาก
+                    <br><a href="#result-small" style="display: inline-block; margin-top: 10px; padding: 5px 15px; background: #27ae60; color: white; text-decoration: none; border-radius: 3px;">ดูผลลัพธ์</a>
+                </div>
+
+                <div style="margin-bottom: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px;">
+                    <strong>D. สายอาร์ต:</strong> ชอบความแปลกใหม่ มีระเบียบวินัย และศึกษาข้อมูลเก่ง
+                    <br><a href="#result-exotic" style="display: inline-block; margin-top: 10px; padding: 5px 15px; background: #2c3e50; color: white; text-decoration: none; border-radius: 3px;">ดูผลลัพธ์</a>
+                </div>
+            </div>
+
+            <div style="margin-top: 100px;"></div> <h2 style="text-align: center; color: #7f8c8d;">--- ผลลัพธ์ของคุณจะปรากฏที่นี่ ---</h2>
+
+            <div id="result-dog" style="padding: 40px 20px; border: 2px solid #e67e22; border-radius: 10px; margin-top: 30px;">
+                <h2 style="color: #e67e22;">คุณเหมาะกับ: 🐶 สุนัข (The Best Friend)</h2>
+                <img src="dog_thumb.jpg" width="80%" style="border-radius: 10px; margin-bottom: 15px;">
+                <p>คุณเป็นคนมีพลังงานเหลือเฟือ! สุนัขคือเพื่อนที่จะร่วมเดินทางและออกกำลังกายไปกับคุณได้ดีที่สุด</p>
+                <a href="p2.html" style="color: #e67e22;">อ่านวิธีดูแลสุนัขเพิ่มเติม ></a>
+            </div>
+
+            <div id="result-cat" style="padding: 40px 20px; border: 2px solid #9b59b6; border-radius: 10px; margin-top: 30px;">
+                <h2 style="color: #9b59b6;">คุณเหมาะกับ: 🐱 แมว (The Independent Boss)</h2>
+                <img src="cat_thumb.jpg" width="80%" style="border-radius: 10px; margin-bottom: 15px;">
+                <p>คุณชอบความสงบและมีสไตล์ที่เรียบง่าย แมวจะช่วยสร้างบรรยากาศผ่อนคลายในที่พักของคุณโดยไม่ต้องดูแลตลอด 24 ชม.</p>
+                <a href="p2.html" style="color: #9b59b6;">อ่านวิธีดูแลแมวเพิ่มเติม ></a>
+            </div>
+
+            <div id="result-small" style="padding: 40px 20px; border: 2px solid #27ae60; border-radius: 10px; margin-top: 30px;">
+                <h2 style="color: #27ae60;">คุณเหมาะกับ: 🐹 สัตว์ฟันแทะ (The Tiny Companion)</h2>
+                <img src="rodent_thumb.jpg" width="80%" style="border-radius: 10px; margin-bottom: 15px;">
+                <p>พื้นที่ไม่ใช่ปัญหาสำหรับความรัก! แฮมสเตอร์หรือกระต่ายคือเพื่อนตัวจิ๋วที่จะทำให้คุณยิ้มได้ในพื้นที่จำกัด</p>
+                <a href="p2.html" style="color: #27ae60;">อ่านวิธีดูแลสัตว์เล็กเพิ่มเติม ></a>
+            </div>
+
+            <div id="result-exotic" style="padding: 40px 20px; border: 2px solid #2c3e50; border-radius: 10px; margin-top: 30px;">
+                <h2 style="color: #2c3e50;">คุณเหมาะกับ: 🦎 สัตว์แปลก (The Unique Master)</h2>
+                <img src="exotic_thumb.jpg" width="80%" style="border-radius: 10px; margin-bottom: 15px;">
+                <p>คุณเป็นคนละเอียดอ่อนและชอบการเรียนรู้ สัตว์ Exotic จะทำให้โลกการเลี้ยงสัตว์ของคุณตื่นเต้นไม่เหมือนใคร</p>
+                <a href="p2.html" style="color: #2c3e50;">อ่านวิธีดูแลสัตว์แปลกเพิ่มเติม ></a>
+            </div>
+
+        </div> </div>
+
+    <div class="footer">
+        <img src="banner2.png" alt="Footer Banner" width="100%">
+    </div>
+</body>
+</html>
